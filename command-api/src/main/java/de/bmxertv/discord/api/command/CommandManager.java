@@ -14,13 +14,34 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+/**
+ * Diese Klasse Initialisiert alle Commands
+ *
+ * @version 1.0
+ * @author Christopher
+ */
 public class CommandManager extends ListenerAdapter {
 
+    /**
+     * Gibt die Command Map zurück
+     */
     @Getter
     final Map<String, Map.Entry<Method, Object>> COMMAND_MAP = new HashMap<>();
+    /**
+     * Gibt den Prefix Zurück
+     */
     final char PREFIX;
+    /**
+     * Gibt den Default Command zurück
+     */
     final Consumer<APICommand> DEFAULT_COMMAND;
 
+    /**
+     * Initialisiert den Command Manager
+     * @param prefix Prefix
+     * @param defaultCommand Consumer mit einem APICommand (Default Command)
+     * @param commandObjects Alle Command Klassen als Object
+     */
     public CommandManager(char prefix, Consumer<APICommand> defaultCommand, Object... commandObjects) {
         this.PREFIX = prefix;
         this.registerCommands(commandObjects);
