@@ -15,6 +15,11 @@ public class PreviewMessage {
     final Member MEMBER;
     final EmbedMessage EMBED_MESSAGE;
 
+    /**
+     * Initialisiert eine PreviewMessage
+     * @param member Member der sie erstellt hat
+     * @param channel Channel in der sie Angezeigt werden soll
+     */
     public PreviewMessage(Member member, TextChannel channel) {
         this.EMBED_MESSAGE = getEmbedMessage(member);
         this.MEMBER = member;
@@ -25,10 +30,20 @@ public class PreviewMessage {
         }
     }
 
+    /**
+     * Gibt die PreviewMessage zurück
+     * @param member Member der sie erstellt hat
+     * @return EmbedMessage
+     */
     public EmbedMessage getEmbedMessage(Member member) {
         return this.MAP.containsKey(member) ? this.MAP.get(member).getValue() : new EmbedMessage().setTitle("Preview").setColor("#FFFFFF");
     }
 
+    /**
+     * Updatet die PreviewMessage
+     * @param embedMessage EmbedMessage
+     * @return PreviewMessage
+     */
     public PreviewMessage update(EmbedMessage embedMessage) {
         Message message = this.MAP.get(this.MEMBER).getKey();
         message.editMessage(embedMessage.build()).complete();
@@ -36,6 +51,10 @@ public class PreviewMessage {
         return this;
     }
 
+    /**
+     * Sendet die Nachricht
+     * @param channel TextChannel in der die Nachricht zu sehen sein soll
+     */
     public void finish(TextChannel channel) {
         this.MAP.get(this.MEMBER).getKey().delete().queue();
         EmbedMessage embedMessage = this.MAP.get(this.MEMBER).getValue();
